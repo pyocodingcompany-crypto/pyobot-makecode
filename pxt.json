@@ -1,14 +1,13 @@
 {
     "name": "PyoBot",
     "version": "1.0.0",
-    "description": "PyoBot - micro:bit robot board extension",
+    "description": "PyoBot - micro:bit robot board extension (표쌤코딩)",
     "dependencies": {
         "core": "*",
         "microbit": "*"
     },
     "files": [
-        "main.ts",
-        "icon.png"
+        "main.ts"
     ],
     "testFiles": [
         "test.ts"
