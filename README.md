@@ -58,6 +58,15 @@ This extension adds **PyoBot** blocks to MakeCode for controlling the PyoBot rob
 | I2C SCL | P19 |
 | I2C SDA | P20 |
 
+### HuskyLens (AI 카메라) 연동
+
+PyoBot과 HuskyLens를 함께 사용할 수 있습니다. (I2C: P19/P20)
+
+1. 확장에서 추가: `https://github.com/DFRobot/pxt-DFRobot_HuskyLens`
+2. PyoBot 확장과 동시에 사용 가능 (핀 충돌 없음)
+
+HuskyLens AI 기능: 얼굴 인식, 객체 추적, 라인 추적, 색상 인식, 태그/QR코드 인식
+
 ## License
 
 MIT
