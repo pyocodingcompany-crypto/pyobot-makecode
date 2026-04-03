@@ -1,5 +1,7 @@
 # PyoBot
 
+![PyoBot](pyobot.png)
+
 micro:bit robot board extension for MakeCode (표쌤코딩)
 
 ## Usage
