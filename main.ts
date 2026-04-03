@@ -182,7 +182,7 @@ namespace PyoBot {
     /**
      * 초음파 센서로 거리를 측정합니다. (cm)
      */
-    //% block="초음파 거리 (cm)"
+    //% block="초음파 거리 cm"
     //% group="초음파" weight=79
     export function ultrasonic(): number {
         pins.digitalWritePin(DigitalPin.P1, 0)
