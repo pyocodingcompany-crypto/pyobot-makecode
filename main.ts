@@ -181,13 +181,23 @@ namespace PyoBot {
     }
 
     /**
-     * 라인센서가 검정 라인을 감지했는지 확인합니다.
+     * 라인센서가 검정 라인을 감지했으면 참
      * @param sensor 센서 선택
      */
-    //% block="$sensor 라인센서 검정 감지됨"
+    //% block="$sensor 라인센서 감지됨"
     //% group="라인센서" weight=88
     export function lineDetected(sensor: PyoLineSensor): boolean {
         return lineSensor(sensor) == 1
+    }
+
+    /**
+     * 라인센서가 검정 라인을 감지하지 못했으면 참
+     * @param sensor 센서 선택
+     */
+    //% block="$sensor 라인센서 감지안됨"
+    //% group="라인센서" weight=87
+    export function lineNotDetected(sensor: PyoLineSensor): boolean {
+        return lineSensor(sensor) == 0
     }
 
     // ───────── 초음파 ─────────
