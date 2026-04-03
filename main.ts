@@ -65,22 +65,12 @@ enum PyoTurn {
 //% groups="['모터', '라인센서', '초음파', 'LED', '부저', '서보']"
 namespace PyoBot {
 
-    let _initialized = false
-    function autoInit(): void {
-        if (!_initialized) {
-            _initialized = true
+    let _motorInit = false
+    function motorInit(): void {
+        if (!_motorInit) {
+            _motorInit = true
             led.enable(false)
         }
-    }
-
-    /**
-     * PyoBot을 초기화합니다. 시작하면 블록 안에 넣어주세요.
-     */
-    //% block="PyoBot 초기화"
-    //% weight=100
-    export function init(): void {
-        led.enable(false)
-        _initialized = true
     }
 
     // ───────── 모터 ─────────
@@ -95,7 +85,7 @@ namespace PyoBot {
     //% speed.min=0 speed.max=1023 speed.defl=500
     //% group="모터" weight=99
     export function motorRun(motor: PyoMotor, direction: PyoDirection, speed: number): void {
-        autoInit()
+        motorInit()
         if (motor == PyoMotor.Left || motor == PyoMotor.Both) {
             if (direction == PyoDirection.Forward) {
                 // 왼쪽바퀴 반시계방향 = 전진
@@ -129,7 +119,7 @@ namespace PyoBot {
     //% block="$motor 모터 정지"
     //% group="모터" weight=98
     export function motorStop(motor: PyoMotor): void {
-        autoInit()
+        motorInit()
         if (motor == PyoMotor.Left || motor == PyoMotor.Both) {
             pins.analogWritePin(AnalogPin.P8, 0)
             pins.digitalWritePin(DigitalPin.P9, 0)
@@ -151,7 +141,7 @@ namespace PyoBot {
     //% speed.min=0 speed.max=1023 speed.defl=500
     //% group="모터" weight=97
     export function motorTurn(turn: PyoTurn, speed: number): void {
-        autoInit()
+        motorInit()
         if (turn == PyoTurn.Left) {
             // 좌회전: 왼쪽 멈춤, 오른쪽 전진
             motorStop(PyoMotor.Left)
@@ -172,7 +162,6 @@ namespace PyoBot {
     //% block="$sensor 라인센서 감지"
     //% group="라인센서" weight=89
     export function lineSensor(sensor: PyoLineSensor): number {
-        autoInit()
         if (sensor == PyoLineSensor.Left) {
             return pins.digitalReadPin(DigitalPin.P6)
         } else {
@@ -208,7 +197,6 @@ namespace PyoBot {
     //% block="초음파 거리 cm"
     //% group="초음파" weight=79
     export function ultrasonic(): number {
-        autoInit()
         pins.digitalWritePin(DigitalPin.P1, 0)
         control.waitMicros(2)
         pins.digitalWritePin(DigitalPin.P1, 1)
@@ -229,7 +217,6 @@ namespace PyoBot {
     //% block="$led LED $state"
     //% group="LED" weight=69
     export function pyoLed(led: PyoLED, state: PyoLEDState): void {
-        autoInit()
         if (led == PyoLED.Left || led == PyoLED.Both) {
             pins.digitalWritePin(DigitalPin.P3, state)
         }
