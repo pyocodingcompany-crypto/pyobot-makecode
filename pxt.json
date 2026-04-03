@@ -1,0 +1,20 @@
+{
+    "name": "PyoBot",
+    "version": "1.0.0",
+    "description": "PyoBot - micro:bit robot board extension",
+    "dependencies": {
+        "core": "*",
+        "microbit": "*"
+    },
+    "files": [
+        "main.ts",
+        "icon.png"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
