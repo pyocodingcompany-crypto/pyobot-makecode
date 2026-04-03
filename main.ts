@@ -184,7 +184,7 @@ namespace PyoBot {
      * 라인센서가 검정 라인을 감지했는지 확인합니다.
      * @param sensor 센서 선택
      */
-    //% block="$sensor 라인센서 검정 감지?"
+    //% block="$sensor 라인센서 검정 감지됨"
     //% group="라인센서" weight=88
     export function lineDetected(sensor: PyoLineSensor): boolean {
         return lineSensor(sensor) == 1
