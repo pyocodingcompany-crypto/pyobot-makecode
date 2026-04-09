@@ -1,7 +1,8 @@
 {
-    "name": "PyoBot",
+    "name": "pyobot",
     "version": "1.0.0",
-    "description": "PyoBot - micro:bit robot board extension (표쌤코딩)",
+    "description": "PyoBot micro:bit robot board extension",
+    "license": "MIT",
     "dependencies": {
         "core": "*",
         "microbit": "*"
