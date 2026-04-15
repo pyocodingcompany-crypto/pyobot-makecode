@@ -20,7 +20,7 @@
     "PyoBot.lineDetected|block": "$sensor 라인센서 감지됨",
     "PyoBot.lineNotDetected|block": "$sensor 라인센서 감지안됨",
     "PyoBot.ultrasonic|block": "초음파 거리 cm",
-    "PyoBot.pyoLed|block": "$led LED $state",
+    "PyoBot.pyoLed|block": "$pyoLed LED $state",
     "PyoBot.buzzer|block": "부저 주파수 $frequency Hz $duration ms",
     "PyoBot.buzzerOff|block": "부저 끄기",
     "PyoBot.servo|block": "서보 각도 $angle °",

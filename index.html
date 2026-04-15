@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyoBot - micro:bit Robot Car Board</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; color: #333; line-height: 1.6; }
+        .hero {
+            background: linear-gradient(135deg, #FF6B35, #FF8F60);
+            color: white; text-align: center; padding: 60px 20px;
+        }
+        .hero img { max-width: 300px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .hero h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .hero p { font-size: 1.2em; opacity: 0.95; max-width: 600px; margin: 0 auto 20px; }
+        .btn {
+            display: inline-block; background: white; color: #FF6B35;
+            padding: 14px 32px; border-radius: 8px; text-decoration: none;
+            font-weight: bold; font-size: 1.1em; margin: 8px;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent; border: 2px solid white; color: white;
+        }
+        .section { max-width: 900px; margin: 0 auto; padding: 50px 20px; }
+        .section h2 { font-size: 1.8em; color: #FF6B35; margin-bottom: 20px; text-align: center; }
+        .features {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px; margin-top: 30px;
+        }
+        .feature {
+            background: #f8f8f8; border-radius: 12px; padding: 24px;
+            text-align: center; border: 1px solid #eee;
+        }
+        .feature .icon { font-size: 2.5em; margin-bottom: 12px; }
+        .feature h3 { color: #FF6B35; margin-bottom: 8px; }
+        .pinmap { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .pinmap th { background: #FF6B35; color: white; padding: 12px; text-align: left; }
+        .pinmap td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+        .pinmap tr:nth-child(even) { background: #f8f8f8; }
+        .steps { list-style: none; counter-reset: step; }
+        .steps li {
+            counter-increment: step; padding: 16px 16px 16px 60px;
+            position: relative; margin-bottom: 12px;
+            background: #f8f8f8; border-radius: 8px;
+        }
+        .steps li::before {
+            content: counter(step);
+            position: absolute; left: 16px; top: 16px;
+            background: #FF6B35; color: white; width: 32px; height: 32px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold;
+        }
+        .code-block {
+            background: #2d2d2d; color: #f8f8f2; padding: 20px;
+            border-radius: 8px; overflow-x: auto; font-family: monospace;
+            font-size: 0.95em; line-height: 1.5; margin: 16px 0;
+        }
+        footer {
+            background: #333; color: #aaa; text-align: center;
+            padding: 30px 20px; margin-top: 40px;
+        }
+        footer a { color: #FF8F60; }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8em; }
+            .features { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <img src="icon.png" alt="PyoBot Robot Car">
+    <h1>PyoBot</h1>
+    <p>micro:bit 로봇카 보드 - MakeCode 블록 코딩으로 쉽게 배우는 로봇 프로그래밍</p>
+    <p>A micro:bit robot car board with MakeCode block coding support for easy robot programming education.</p>
+    <a href="https://makecode.microbit.org/#pub:github:pyocodingcompany-crypto/pyobot-makecode" class="btn">Open in MakeCode</a>
+    <a href="https://github.com/pyocodingcompany-crypto/pyobot-makecode" class="btn btn-outline">GitHub</a>
+</div>
+
+<div class="section">
+    <h2>Features</h2>
+    <div class="features">
+        <div class="feature">
+            <div class="icon">&#9881;</div>
+            <h3>DC Motors</h3>
+            <p>Control two DC motors independently. Forward, backward, turn left/right with adjustable speed (0–1023).</p>
+        </div>
+        <div class="feature">
+            <div class="icon">&#9473;</div>
+            <h3>Line Sensor</h3>
+            <p>Two IR line sensors (left/right) for line tracing. Detects black lines on white surfaces.</p>
+        </div>
+        <div class="feature">
+            <div class="icon">&#9899;</div>
+            <h3>Ultrasonic</h3>
+            <p>HC-SR04 ultrasonic distance sensor. Measure distance in centimeters for obstacle avoidance.</p>
+        </div>
+        <div class="feature">
+            <div class="icon">&#128161;</div>
+            <h3>LED</h3>
+            <p>Left and right indicator LEDs. Control individually or together.</p>
+        </div>
+        <div class="feature">
+            <div class="icon">&#9835;</div>
+            <h3>Buzzer</h3>
+            <p>Play tones at any frequency. Create melodies and sound effects for your robot.</p>
+        </div>
+        <div class="feature">
+            <div class="icon">&#8634;</div>
+            <h3>Servo</h3>
+            <p>Control a servo motor (0–180°) on P2. Great for ultrasonic sensor scanning.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Getting Started</h2>
+    <ol class="steps">
+        <li>Open <a href="https://makecode.microbit.org">makecode.microbit.org</a> and create a new project.</li>
+        <li>Click <strong>Extensions</strong> in the block toolbox.</li>
+        <li>Paste <code>https://github.com/pyocodingcompany-crypto/pyobot-makecode</code> and press search.</li>
+        <li>Click <strong>pyobot</strong> to add the extension. PyoBot blocks will appear in the toolbox.</li>
+        <li>Connect your micro:bit to the PyoBot board and download your code!</li>
+    </ol>
+</div>
+
+<div class="section">
+    <h2>Example: Line Tracing</h2>
+    <div class="code-block">
+basic.forever(function () {<br>
+&nbsp;&nbsp;if (PyoBot.lineDetected(PyoLineSensor.Left)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PyoBot.motorRun(PyoMotor.Left, PyoDirection.Forward, 1023)<br>
+&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PyoBot.motorStop(PyoMotor.Left)<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;if (PyoBot.lineDetected(PyoLineSensor.Right)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PyoBot.motorRun(PyoMotor.Right, PyoDirection.Forward, 1023)<br>
+&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PyoBot.motorStop(PyoMotor.Right)<br>
+&nbsp;&nbsp;}<br>
+})
+    </div>
+</div>
+
+<div class="section">
+    <h2>Example: Obstacle Avoidance</h2>
+    <div class="code-block">
+basic.forever(function () {<br>
+&nbsp;&nbsp;if (PyoBot.ultrasonic() &lt; 15) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PyoBot.motorStop(PyoMotor.Both)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PyoBot.motorTurn(PyoTurn.Right, 500)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;basic.pause(500)<br>
+&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;PyoBot.motorRun(PyoMotor.Both, PyoDirection.Forward, 500)<br>
+&nbsp;&nbsp;}<br>
+})
+    </div>
+</div>
+
+<div class="section">
+    <h2>Pin Map</h2>
+    <table class="pinmap">
+        <tr><th>Function</th><th>Pin</th></tr>
+        <tr><td>LED Left / Right</td><td>P3 / P4</td></tr>
+        <tr><td>Buzzer</td><td>P0</td></tr>
+        <tr><td>Line Sensor Left / Right</td><td>P6 / P7</td></tr>
+        <tr><td>Ultrasonic Trig / Echo</td><td>P1 / P10</td></tr>
+        <tr><td>Motor Left (PWM, Dir)</td><td>P8, P9, P13</td></tr>
+        <tr><td>Motor Right (PWM, Dir)</td><td>P16, P14, P15</td></tr>
+        <tr><td>Servo</td><td>P2</td></tr>
+        <tr><td>I2C (SCL / SDA)</td><td>P19 / P20</td></tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Works with HuskyLens</h2>
+    <p>PyoBot can be used together with <a href="https://github.com/DFRobot/pxt-DFRobot_HuskyLens">DFRobot HuskyLens</a> AI camera over I2C (P19/P20). No pin conflict — add both extensions to your project for AI-powered robot projects!</p>
+</div>
+
+<footer>
+    <p><strong>PyoBot</strong> by <a href="https://github.com/pyocodingcompany-crypto">표쌤코딩 (PyoCoding)</a></p>
+    <p>MIT License | <a href="https://github.com/pyocodingcompany-crypto/pyobot-makecode">GitHub Repository</a></p>
+</footer>
+
+</body>
+</html>
