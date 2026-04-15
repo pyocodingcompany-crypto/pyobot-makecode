@@ -16,53 +16,53 @@
  */
 
 enum PyoMotor {
-    //% block="왼쪽"
+    //% block="Left"
     Left = 0,
-    //% block="오른쪽"
+    //% block="Right"
     Right = 1,
-    //% block="양쪽"
+    //% block="Both"
     Both = 2
 }
 
 enum PyoDirection {
-    //% block="전진"
+    //% block="Forward"
     Forward = 0,
-    //% block="후진"
+    //% block="Backward"
     Backward = 1
 }
 
 enum PyoLED {
-    //% block="왼쪽"
+    //% block="Left"
     Left = 0,
-    //% block="오른쪽"
+    //% block="Right"
     Right = 1,
-    //% block="양쪽"
+    //% block="Both"
     Both = 2
 }
 
 enum PyoLEDState {
-    //% block="켜기"
+    //% block="On"
     On = 1,
-    //% block="끄기"
+    //% block="Off"
     Off = 0
 }
 
 enum PyoLineSensor {
-    //% block="왼쪽"
+    //% block="Left"
     Left = 0,
-    //% block="오른쪽"
+    //% block="Right"
     Right = 1
 }
 
 enum PyoTurn {
-    //% block="좌회전"
+    //% block="Turn Left"
     Left = 0,
-    //% block="우회전"
+    //% block="Turn Right"
     Right = 1
 }
 
 //% weight=100 color=#FF6B35 icon="\uf1b9" block="PyoBot"
-//% groups="['모터', '라인센서', '초음파', 'LED', '부저', '서보']"
+//% groups="['Motors', 'Line Sensor', 'Ultrasonic', 'LED', 'Buzzer', 'Servo']"
 namespace PyoBot {
 
     let _motorInit = false
@@ -76,14 +76,14 @@ namespace PyoBot {
     // ───────── 모터 ─────────
 
     /**
-     * 모터를 지정한 방향과 속도로 작동합니다.
-     * @param motor 모터 선택
-     * @param direction 방향
-     * @param speed 속도 (0~1023), eg: 500
+     * Run motor in specified direction and speed.
+     * @param motor select motor
+     * @param direction direction
+     * @param speed speed (0~1023), eg: 500
      */
-    //% block="$motor 모터 $direction 속도 $speed"
+    //% block="$motor motor $direction speed $speed"
     //% speed.min=0 speed.max=1023 speed.defl=500
-    //% group="모터" weight=99
+    //% group="Motors" weight=99
     export function motorRun(motor: PyoMotor, direction: PyoDirection, speed: number): void {
         motorInit()
         if (motor == PyoMotor.Left || motor == PyoMotor.Both) {
@@ -113,11 +113,11 @@ namespace PyoBot {
     }
 
     /**
-     * 모터를 정지합니다.
-     * @param motor 모터 선택
+     * Stop motor.
+     * @param motor select motor
      */
-    //% block="$motor 모터 정지"
-    //% group="모터" weight=98
+    //% block="$motor motor stop"
+    //% group="Motors" weight=98
     export function motorStop(motor: PyoMotor): void {
         motorInit()
         if (motor == PyoMotor.Left || motor == PyoMotor.Both) {
@@ -133,13 +133,13 @@ namespace PyoBot {
     }
 
     /**
-     * 좌회전/우회전합니다. (한쪽 멈추고 반대쪽 전진)
-     * @param turn 회전 방향
-     * @param speed 속도 (0~1023), eg: 500
+     * Turn left or right. (stop one side, drive the other)
+     * @param turn turn direction
+     * @param speed speed (0~1023), eg: 500
      */
-    //% block="$turn 속도 $speed"
+    //% block="$turn speed $speed"
     //% speed.min=0 speed.max=1023 speed.defl=500
-    //% group="모터" weight=97
+    //% group="Motors" weight=97
     export function motorTurn(turn: PyoTurn, speed: number): void {
         motorInit()
         if (turn == PyoTurn.Left) {
@@ -156,11 +156,11 @@ namespace PyoBot {
     // ───────── 라인센서 ─────────
 
     /**
-     * 라인센서 값을 읽습니다. (0: 흰색, 1: 검정)
-     * @param sensor 센서 선택
+     * Read line sensor value. (0: white, 1: black)
+     * @param sensor select sensor
      */
-    //% block="$sensor 라인센서 감지"
-    //% group="라인센서" weight=89
+    //% block="$sensor line sensor value"
+    //% group="Line Sensor" weight=89
     export function lineSensor(sensor: PyoLineSensor): number {
         if (sensor == PyoLineSensor.Left) {
             return pins.digitalReadPin(DigitalPin.P6)
@@ -170,21 +170,21 @@ namespace PyoBot {
     }
 
     /**
-     * 라인센서가 검정 라인을 감지했으면 참
-     * @param sensor 센서 선택
+     * Returns true if line sensor detects black line.
+     * @param sensor select sensor
      */
-    //% block="$sensor 라인센서 감지됨"
-    //% group="라인센서" weight=88
+    //% block="$sensor line detected"
+    //% group="Line Sensor" weight=88
     export function lineDetected(sensor: PyoLineSensor): boolean {
         return lineSensor(sensor) == 1
     }
 
     /**
-     * 라인센서가 검정 라인을 감지하지 못했으면 참
-     * @param sensor 센서 선택
+     * Returns true if line sensor does not detect black line.
+     * @param sensor select sensor
      */
-    //% block="$sensor 라인센서 감지안됨"
-    //% group="라인센서" weight=87
+    //% block="$sensor line not detected"
+    //% group="Line Sensor" weight=87
     export function lineNotDetected(sensor: PyoLineSensor): boolean {
         return lineSensor(sensor) == 0
     }
@@ -192,10 +192,10 @@ namespace PyoBot {
     // ───────── 초음파 ─────────
 
     /**
-     * 초음파 센서로 거리를 측정합니다. (cm)
+     * Measure distance with ultrasonic sensor. (cm)
      */
-    //% block="초음파 거리 cm"
-    //% group="초음파" weight=79
+    //% block="ultrasonic distance cm"
+    //% group="Ultrasonic" weight=79
     export function ultrasonic(): number {
         pins.digitalWritePin(DigitalPin.P1, 0)
         control.waitMicros(2)
@@ -210,9 +210,9 @@ namespace PyoBot {
     // ───────── LED ─────────
 
     /**
-     * LED를 켜거나 끕니다.
-     * @param led LED 선택
-     * @param state 상태
+     * Turn LED on or off.
+     * @param led select LED
+     * @param state state
      */
     //% block="$led LED $state"
     //% group="LED" weight=69
@@ -228,24 +228,24 @@ namespace PyoBot {
     // ───────── 부저 ─────────
 
     /**
-     * 부저로 음을 재생합니다.
-     * @param frequency 주파수 (Hz), eg: 262
-     * @param duration 재생 시간 (ms), eg: 500
+     * Play tone on buzzer.
+     * @param frequency frequency (Hz), eg: 262
+     * @param duration duration (ms), eg: 500
      */
-    //% block="부저 주파수 $frequency Hz $duration ms"
+    //% block="buzzer frequency $frequency Hz $duration ms"
     //% frequency.min=0 frequency.max=5000 frequency.defl=262
     //% duration.min=0 duration.max=5000 duration.defl=500
-    //% group="부저" weight=59
+    //% group="Buzzer" weight=59
     export function buzzer(frequency: number, duration: number): void {
         pins.analogSetPitchPin(AnalogPin.P0)
         music.playTone(frequency, duration)
     }
 
     /**
-     * 부저를 끕니다.
+     * Stop buzzer.
      */
-    //% block="부저 끄기"
-    //% group="부저" weight=58
+    //% block="buzzer off"
+    //% group="Buzzer" weight=58
     export function buzzerOff(): void {
         music.stopAllSounds()
     }
@@ -253,21 +253,21 @@ namespace PyoBot {
     // ───────── 서보 ─────────
 
     /**
-     * 서보 모터 각도를 설정합니다.
-     * @param angle 각도 (0~180), eg: 90
+     * Set servo angle.
+     * @param angle angle (0~180), eg: 90
      */
-    //% block="서보 각도 $angle °"
+    //% block="servo angle $angle °"
     //% angle.min=0 angle.max=180 angle.defl=90
-    //% group="서보" weight=49
+    //% group="Servo" weight=49
     export function servo(angle: number): void {
         pins.servoWritePin(AnalogPin.P2, angle)
     }
 
     /**
-     * 서보 모터를 해제합니다.
+     * Release servo motor.
      */
-    //% block="서보 해제"
-    //% group="서보" weight=48
+    //% block="servo release"
+    //% group="Servo" weight=48
     export function servoRelease(): void {
         pins.analogWritePin(AnalogPin.P2, 0)
     }
