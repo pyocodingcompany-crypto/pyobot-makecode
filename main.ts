@@ -1,4 +1,4 @@
-/**
+/*
  * PyoBot - micro:bit Robot Board Extension
  *
  * Pin Map:
@@ -12,6 +12,9 @@
  *   I2C: P19(SCL), P20(SDA)
  */
 
+/**
+ * Select which motor to control (left, right, or both).
+ */
 enum PyoMotor {
     //% block="left"
     Left = 0,
@@ -21,6 +24,9 @@ enum PyoMotor {
     Both = 2
 }
 
+/**
+ * Motor rotation direction (forward or backward).
+ */
 enum PyoDirection {
     //% block="forward"
     Forward = 0,
@@ -28,6 +34,9 @@ enum PyoDirection {
     Backward = 1
 }
 
+/**
+ * Select which LED to control (left, right, or both).
+ */
 enum PyoLED {
     //% block="left"
     Left = 0,
@@ -37,6 +46,9 @@ enum PyoLED {
     Both = 2
 }
 
+/**
+ * LED power state (on or off).
+ */
 enum PyoLEDState {
     //% block="on"
     On = 1,
@@ -44,6 +56,9 @@ enum PyoLEDState {
     Off = 0
 }
 
+/**
+ * Select which line sensor to read (left or right).
+ */
 enum PyoLineSensor {
     //% block="left"
     Left = 0,
@@ -51,6 +66,9 @@ enum PyoLineSensor {
     Right = 1
 }
 
+/**
+ * Turn direction for differential steering.
+ */
 enum PyoTurn {
     //% block="turn left"
     Left = 0,
@@ -58,6 +76,10 @@ enum PyoTurn {
     Right = 1
 }
 
+/**
+ * Blocks for controlling the PyoBot micro:bit robot board:
+ * motors, line sensors, ultrasonic, LEDs, buzzer, and servo.
+ */
 //% weight=100 color=#FF6B35 icon="\uf1b9" block="PyoBot"
 //% groups="['Motors', 'Line Sensor', 'Ultrasonic', 'LED', 'Buzzer', 'Servo']"
 namespace pyobot {
