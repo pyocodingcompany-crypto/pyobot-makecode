@@ -1,13 +1,13 @@
 {
     "name": "pyobot",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "PyoBot micro:bit robot car board extension - motor, line sensor, ultrasonic, LED, buzzer, servo",
     "license": "MIT",
     "dependencies": {
-        "core": "*",
-        "microbit": "*"
+        "core": "*"
     },
     "files": [
+        "README.md",
         "main.ts",
         "_locales/ko/pyobot-strings.json"
     ],

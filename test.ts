@@ -46,29 +46,29 @@ input.onButtonPressed(Button.A, function () {
     basic.pause(300)
 
     // Test motorRun forward
-    PyoBot.motorRun(PyoMotor.Both, PyoDirection.Forward, 500)
+    pyobot.motorRun(PyoMotor.Both, PyoDirection.Forward, 500)
     basic.pause(1000)
 
     // Test motorRun backward
-    PyoBot.motorRun(PyoMotor.Both, PyoDirection.Backward, 500)
+    pyobot.motorRun(PyoMotor.Both, PyoDirection.Backward, 500)
     basic.pause(1000)
 
     // Test motorRun single motor
-    PyoBot.motorRun(PyoMotor.Left, PyoDirection.Forward, 500)
+    pyobot.motorRun(PyoMotor.Left, PyoDirection.Forward, 500)
     basic.pause(500)
-    PyoBot.motorRun(PyoMotor.Right, PyoDirection.Forward, 500)
+    pyobot.motorRun(PyoMotor.Right, PyoDirection.Forward, 500)
     basic.pause(500)
 
     // Test motorTurn left
-    PyoBot.motorTurn(PyoTurn.Left, 500)
+    pyobot.motorTurn(PyoTurn.Left, 500)
     basic.pause(1000)
 
     // Test motorTurn right
-    PyoBot.motorTurn(PyoTurn.Right, 500)
+    pyobot.motorTurn(PyoTurn.Right, 500)
     basic.pause(1000)
 
     // Test motorStop
-    PyoBot.motorStop(PyoMotor.Both)
+    pyobot.motorStop(PyoMotor.Both)
 
     showPass()
 })
@@ -82,7 +82,7 @@ input.onButtonPressed(Button.B, function () {
     basic.pause(300)
 
     // Test ultrasonic - should return a number >= 0
-    let dist = PyoBot.ultrasonic()
+    let dist = pyobot.ultrasonic()
     if (dist >= 0) {
         basic.showNumber(dist)
         basic.pause(1000)
@@ -92,8 +92,8 @@ input.onButtonPressed(Button.B, function () {
     }
 
     // Test lineSensor - should return 0 or 1
-    let leftVal = PyoBot.lineSensor(PyoLineSensor.Left)
-    let rightVal = PyoBot.lineSensor(PyoLineSensor.Right)
+    let leftVal = pyobot.lineSensor(PyoLineSensor.Left)
+    let rightVal = pyobot.lineSensor(PyoLineSensor.Right)
     if ((leftVal == 0 || leftVal == 1) && (rightVal == 0 || rightVal == 1)) {
         basic.showString("L" + leftVal + "R" + rightVal)
         basic.pause(1000)
@@ -103,8 +103,8 @@ input.onButtonPressed(Button.B, function () {
     }
 
     // Test lineDetected / lineNotDetected - boolean checks
-    let detected = PyoBot.lineDetected(PyoLineSensor.Left)
-    let notDetected = PyoBot.lineNotDetected(PyoLineSensor.Left)
+    let detected = pyobot.lineDetected(PyoLineSensor.Left)
+    let notDetected = pyobot.lineNotDetected(PyoLineSensor.Left)
     if (detected != notDetected) {
         showPass()
     } else {
@@ -120,34 +120,34 @@ input.onButtonPressed(Button.AB, function () {
     basic.pause(300)
 
     // Test LED on/off
-    PyoBot.pyoLed(PyoLED.Both, PyoLEDState.On)
+    pyobot.pyoLed(PyoLED.Both, PyoLEDState.On)
     basic.pause(500)
-    PyoBot.pyoLed(PyoLED.Both, PyoLEDState.Off)
+    pyobot.pyoLed(PyoLED.Both, PyoLEDState.Off)
     basic.pause(200)
-    PyoBot.pyoLed(PyoLED.Left, PyoLEDState.On)
+    pyobot.pyoLed(PyoLED.Left, PyoLEDState.On)
     basic.pause(300)
-    PyoBot.pyoLed(PyoLED.Left, PyoLEDState.Off)
-    PyoBot.pyoLed(PyoLED.Right, PyoLEDState.On)
+    pyobot.pyoLed(PyoLED.Left, PyoLEDState.Off)
+    pyobot.pyoLed(PyoLED.Right, PyoLEDState.On)
     basic.pause(300)
-    PyoBot.pyoLed(PyoLED.Right, PyoLEDState.Off)
+    pyobot.pyoLed(PyoLED.Right, PyoLEDState.Off)
     showPass()
 
     // Test buzzer
-    PyoBot.buzzer(262, 300)
+    pyobot.buzzer(262, 300)
     basic.pause(400)
-    PyoBot.buzzer(523, 300)
+    pyobot.buzzer(523, 300)
     basic.pause(400)
-    PyoBot.buzzerOff()
+    pyobot.buzzerOff()
     showPass()
 
     // Test servo
-    PyoBot.servo(0)
+    pyobot.servo(0)
     basic.pause(500)
-    PyoBot.servo(90)
+    pyobot.servo(90)
     basic.pause(500)
-    PyoBot.servo(180)
+    pyobot.servo(180)
     basic.pause(500)
-    PyoBot.servoRelease()
+    pyobot.servoRelease()
     showPass()
 
     // Show total results

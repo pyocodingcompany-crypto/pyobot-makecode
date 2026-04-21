@@ -1,5 +1,5 @@
 /**
- * PyoBot - micro:bit Robot Board Extension (표쌤코딩)
+ * PyoBot - micro:bit Robot Board Extension
  *
  * Pin Map:
  *   LED Left: P3,  LED Right: P4
@@ -60,12 +60,12 @@ enum PyoTurn {
 
 //% weight=100 color=#FF6B35 icon="\uf1b9" block="PyoBot"
 //% groups="['Motors', 'Line Sensor', 'Ultrasonic', 'LED', 'Buzzer', 'Servo']"
-namespace PyoBot {
+namespace pyobot {
 
-    let _motorInit = false
-    function motorInit(): void {
-        if (!_motorInit) {
-            _motorInit = true
+    let _pinsReady = false
+    function initPins(): void {
+        if (!_pinsReady) {
+            _pinsReady = true
             led.enable(false)
         }
     }
@@ -79,12 +79,11 @@ namespace PyoBot {
      * @param direction direction, eg: PyoDirection.Forward
      * @param speed speed (0~1023), eg: 500
      */
-    //% block="$motor motor $direction speed $speed"
+    //% block="motor $motor $direction speed $speed"
     //% speed.min=0 speed.max=1023 speed.defl=500
     //% group="Motors" weight=99
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function motorRun(motor: PyoMotor, direction: PyoDirection, speed: number): void {
-        motorInit()
+        initPins()
         if (motor == PyoMotor.Left || motor == PyoMotor.Both) {
             if (direction == PyoDirection.Forward) {
                 pins.digitalWritePin(DigitalPin.P9, 1)
@@ -111,11 +110,10 @@ namespace PyoBot {
      * Stop motor. Sets PWM to 0 and clears direction pins.
      * @param motor select motor, eg: PyoMotor.Both
      */
-    //% block="$motor motor stop"
+    //% block="motor $motor stop"
     //% group="Motors" weight=98
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function motorStop(motor: PyoMotor): void {
-        motorInit()
+        initPins()
         if (motor == PyoMotor.Left || motor == PyoMotor.Both) {
             pins.analogWritePin(AnalogPin.P8, 0)
             pins.digitalWritePin(DigitalPin.P9, 0)
@@ -136,9 +134,8 @@ namespace PyoBot {
     //% block="$turn speed $speed"
     //% speed.min=0 speed.max=1023 speed.defl=500
     //% group="Motors" weight=97
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function motorTurn(turn: PyoTurn, speed: number): void {
-        motorInit()
+        initPins()
         if (turn == PyoTurn.Left) {
             motorStop(PyoMotor.Left)
             motorRun(PyoMotor.Right, PyoDirection.Forward, speed)
@@ -156,8 +153,8 @@ namespace PyoBot {
      */
     //% block="$sensor line sensor value"
     //% group="Line Sensor" weight=89
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function lineSensor(sensor: PyoLineSensor): number {
+        initPins()
         if (sensor == PyoLineSensor.Left) {
             return pins.digitalReadPin(DigitalPin.P6)
         } else {
@@ -171,8 +168,8 @@ namespace PyoBot {
      */
     //% block="$sensor line detected"
     //% group="Line Sensor" weight=88
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function lineDetected(sensor: PyoLineSensor): boolean {
+        initPins()
         return lineSensor(sensor) == 1
     }
 
@@ -182,8 +179,8 @@ namespace PyoBot {
      */
     //% block="$sensor line not detected"
     //% group="Line Sensor" weight=87
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function lineNotDetected(sensor: PyoLineSensor): boolean {
+        initPins()
         return lineSensor(sensor) == 0
     }
 
@@ -195,8 +192,8 @@ namespace PyoBot {
      */
     //% block="ultrasonic distance cm"
     //% group="Ultrasonic" weight=79
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function ultrasonic(): number {
+        initPins()
         pins.digitalWritePin(DigitalPin.P1, 0)
         control.waitMicros(2)
         pins.digitalWritePin(DigitalPin.P1, 1)
@@ -214,10 +211,10 @@ namespace PyoBot {
      * @param pyoLed select LED, eg: PyoLED.Both
      * @param state on or off, eg: PyoLEDState.On
      */
-    //% block="$pyoLed LED $state"
+    //% block="$pyoLed led $state"
     //% group="LED" weight=69
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function pyoLed(pyoLed: PyoLED, state: PyoLEDState): void {
+        initPins()
         if (pyoLed == PyoLED.Left || pyoLed == PyoLED.Both) {
             pins.digitalWritePin(DigitalPin.P3, state)
         }
@@ -238,7 +235,6 @@ namespace PyoBot {
     //% frequency.min=0 frequency.max=5000 frequency.defl=262
     //% duration.min=0 duration.max=5000 duration.defl=500
     //% group="Buzzer" weight=59
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function buzzer(frequency: number, duration: number): void {
         pins.analogSetPitchPin(AnalogPin.P0)
         music.playTone(frequency, duration)
@@ -249,7 +245,6 @@ namespace PyoBot {
      */
     //% block="buzzer off"
     //% group="Buzzer" weight=58
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function buzzerOff(): void {
         music.stopAllSounds()
     }
@@ -263,7 +258,6 @@ namespace PyoBot {
     //% block="servo angle $angle °"
     //% angle.min=0 angle.max=180 angle.defl=90
     //% group="Servo" weight=49
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function servo(angle: number): void {
         pins.servoWritePin(AnalogPin.P2, angle)
     }
@@ -273,7 +267,6 @@ namespace PyoBot {
      */
     //% block="servo release"
     //% group="Servo" weight=48
-    //% help=github:pyocodingcompany-crypto/pyobot-makecode/README
     export function servoRelease(): void {
         pins.analogWritePin(AnalogPin.P2, 0)
     }
