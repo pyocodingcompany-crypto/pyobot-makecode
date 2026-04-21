@@ -17,6 +17,13 @@ Control motors, line sensors, ultrasonic sensor, LEDs, buzzer, and servo with si
 
 - [PyoBot Product Page (표쌤코딩)](https://pyocodingcompany-crypto.github.io/pyobot-makecode/)
 
+## Purchase & Inquiry
+
+For purchase, bulk orders, or classroom use inquiries:
+
+- **Email:** onbom2026@gmail.com
+- **KakaoTalk:** Request open-chat link via email
+
 ## Tutorials and Resources
 
 - [PyoBot Getting Started Guide](https://pyocodingcompany-crypto.github.io/pyobot-makecode/#getting-started)
