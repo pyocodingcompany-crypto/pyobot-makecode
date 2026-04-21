@@ -21,7 +21,7 @@ Control motors, line sensors, ultrasonic sensor, LEDs, buzzer, and servo with si
 
 For purchase, bulk orders, or classroom use inquiries:
 
-- **Email:** onbom2026@gmail.com
+- **Email:** pyocodingcompany@gmail.com
 - **KakaoTalk:** Request open-chat link via email
 
 ## Tutorials and Resources
