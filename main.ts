@@ -85,6 +85,7 @@ enum PyoTurn {
 namespace pyobot {
 
     let _pinsReady = false
+    let _lastPing = 0
     function initPins(): void {
         if (!_pinsReady) {
             _pinsReady = true
@@ -211,19 +212,39 @@ namespace pyobot {
     /**
      * Measure distance with ultrasonic sensor in centimeters.
      * Uses P1 (trig) and P10 (echo).
+     *
+     * Returns 0 ONLY when the sensor does not respond at all
+     * (not connected, wired backwards, or faulty).
+     * When nothing is within range the HC-SR04 still emits a
+     * ~38ms "no object" pulse; that pulse is measured and reported
+     * as a large distance (about 655cm), so an empty space and a
+     * broken sensor no longer look the same.
      */
-    //% block="ultrasonic distance cm"
+    //% block="ultrasonic distance (cm)"
     //% group="Ultrasonic" weight=79
     export function ultrasonic(): number {
         initPins()
+
+        // HC-SR04 needs >= 60ms between measurements, otherwise the
+        // next reading picks up the tail of the previous burst.
+        const wait = 60 - (control.millis() - _lastPing)
+        if (wait > 0) basic.pause(wait)
+
         pins.digitalWritePin(DigitalPin.P1, 0)
         control.waitMicros(2)
         pins.digitalWritePin(DigitalPin.P1, 1)
         control.waitMicros(10)
         pins.digitalWritePin(DigitalPin.P1, 0)
 
-        const duration = pins.pulseIn(DigitalPin.P10, PulseValue.High, 30000)
-        return Math.round(duration / 58)
+        // 60000us: long enough to capture the ~38ms "no object" pulse.
+        const duration = pins.pulseIn(DigitalPin.P10, PulseValue.High, 60000)
+        _lastPing = control.millis()
+
+        if (duration == 0) return 0
+
+        // micro:bit V1 and V2 measure pulses differently.
+        const div = control.hardwareVersion() == "1" ? 39 : 58
+        return Math.round(duration / div)
     }
 
     // ───────── LED ─────────
