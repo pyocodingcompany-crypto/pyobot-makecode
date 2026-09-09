@@ -216,8 +216,8 @@ namespace pyobot {
      * Returns 0 ONLY when the sensor does not respond at all
      * (not connected, wired backwards, or faulty).
      * When nothing is within range the HC-SR04 still emits a
-     * ~38ms "no object" pulse; that pulse is measured and reported
-     * as a large distance (about 655cm), so an empty space and a
+     * ~70ms "no object" pulse; that pulse is measured and reported
+     * as a large distance (about 1200cm), so an empty space and a
      * broken sensor no longer look the same.
      */
     //% block="ultrasonic distance (cm)"
@@ -236,8 +236,8 @@ namespace pyobot {
         control.waitMicros(10)
         pins.digitalWritePin(DigitalPin.P1, 0)
 
-        // 60000us: long enough to capture the ~38ms "no object" pulse.
-        const duration = pins.pulseIn(DigitalPin.P10, PulseValue.High, 60000)
+        // 100000us: these boards emit a ~70ms "no object" pulse.
+        const duration = pins.pulseIn(DigitalPin.P10, PulseValue.High, 100000)
         _lastPing = control.millis()
 
         if (duration == 0) return 0
